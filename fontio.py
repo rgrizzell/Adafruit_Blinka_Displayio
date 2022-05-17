@@ -18,10 +18,29 @@ fontio for Blinka
 """
 
 from PIL import ImageFont
+from typing_extensions import Protocol
 from displayio import Bitmap
 
 __version__ = "0.0.0-auto.0"
 __repo__ = "https://github.com/adafruit/Adafruit_Blinka_displayio.git"
+
+
+class FontProtocol(Protocol):
+    """A protocol shared by `BuiltinFont`"""
+
+    def get_bounding_box(self):
+        """Retrieve the maximum bounding box of any glyph in the font.
+
+        The four element version is ``(width, height, x_offset, y_offset)``.
+        The two element version is ``(width, height)``, in which
+        ``x_offset`` and ``y_offset`` are assumed to be zero."""
+        pass
+
+    def get_glyph(self, codepoint):
+        """Retrieve the Glyph for a given code point
+
+        If the code point is not present in the font, `None` is returned."""
+        pass
 
 
 class BuiltinFont:
